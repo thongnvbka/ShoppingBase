@@ -1,0 +1,68 @@
+﻿@model List<ProductCategoryViewModel>
+<div class="mtmegamenu">
+    <ul class="hidden-xs">
+        <li class="mt-root demo_custom_link_cms">
+            <div class="mt-root-item">
+                <a href="/">
+                    <div class="title title_font"><span class="title-text">Trang chủ</span></div>
+                </a>
+            </div>
+
+        </li>
+        @{ var parent = Model.Where(x => x.ParentId == null);}
+        @foreach (var item in parent)
+        {
+            var childs = Model.Where(x => x.ParentId == item.Id);
+    <li class="mt-root demo_custom_link_cms">
+        @if (childs.Count() > 0)
+        {
+            <div class="mt-root-item">
+                <a href="javascript:void(0)">
+                    <div class="title title_font"><span class="title-text">@item.Name</span></div>
+                </a>
+            </div>
+
+        }
+        else
+        {
+            <div class="mt-root-item">
+                <a href="/@item.SeoAlias-c.@(item.Id).html">
+                    <div class="title title_font"><span class="title-text">@item.Name</span></div>
+                </a>
+            </div>
+        }
+        @if (childs.Count() > 0)
+        {
+
+            <ul class="menu-items col-md-3 col-sm-4 col-xs-12" style="top: 28px; left: 402.531px;">
+                @foreach (var child in childs)
+                {
+                    <li class="menu-item depth-1">
+                        <div class="title"> <a href="/@child.SeoAlias-c.@(child.Id).html"> @child.Name </a></div>
+                    </li>
+                }
+            </ul>
+            <span onclick="javascript:menusub(this);" class="isChild"></span>
+        }
+    </li>
+
+        }
+
+        @*<li class="mt-root demo_custom_link_cms">
+            <div class="mt-root-item">
+                <a href="/contact.html">
+                    <div class="title title_font"><span class="title-text">Liên hệ</span></div>
+                </a>
+            </div>
+        </li>*@
+    <li class="mt-root">
+        <div class="mt-root-item">
+            <a href="/contact.html">
+                <div class="title title_font"><span class="title-text">Liên hệ</span></div>
+            </a>
+        </div>
+        @*<span onclick="javascript:menusub(this);" class="isChild"></span>*@
+
+    </li>
+    </ul>
+</div>
